@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="../js/react.js"></script>
+    <script src="../js/react-dom.js"></script>
+    <script src="../js/browser.min.js"></script>
+</head>
+
+<body>
+    <div id="content"></div>
+    <div id="dateNow"></div>
+    <script type="text/babel">
+    class Clock extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { date: this.props.date }
+                 // 这个绑定是必要的，使`this`在回调中起作用
+                this.updateDate = this.updateDate.bind(this);
+            }
+            updateDate(){
+                //this 为null调用方需要bind(this)  onClick={this.updateDate.bind(this)}
+                // 或用es6的lambda ()=>this.updateDate()
+                // 或构造函数中制定this.updateDate = this.updateDate.bind(this);
+                this.setState({ date: new Date() });
+            }
+            render() {
+                return (
+                    <div>
+                        <h1 onClick={this.updateDate}>hi,click, now is {this.state.date.toLocaleTimeString()}</h1>
+                    </div>
+                )
+            }
+      
+    }
+    //默认属性
+    Clock.defaultProps={date:new Date()}; 
+
+    class Clock2 extends Clock{
+        render(){
+           return <h1> hi,now is{this.state.date.toLocaleTimeString()}</h1>
+        }
+        
+        componentDidMount(){
+          var timeId= setInterval(()=>this.updateDate(),1000);
+        }
+
+    }
+
+     ReactDOM.render(
+        <Clock date={new Date()}></Clock>,
+        document.getElementById('content')
+    );
+
+    ReactDOM.render(
+        <Clock2></Clock2>,
+        document.getElementById('dateNow')
+    );
+
+    </script>
+</body>
+
+</html>

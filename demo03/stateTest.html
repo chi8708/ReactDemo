@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="../js/react.js"></script>
+    <script src="../js/react-dom.js"></script>
+    <script src="../js/browser.min.js"></script>
+</head>
+<body>
+    <div id="content"></div>
+   
+    <script type="text/babel">
+    
+    //获取组件真实dom
+    class LikeButton extends React.Component{
+        constructor(props){
+            super(props);
+            this.state={liked: false};
+           this.handClick=this.handClick.bind(this);
+        }
+         
+        handClick(){
+            this.setState({liked: !this.state.liked});
+        }
+        render(){
+            var text = this.state.liked ? 'like' : 'haven\'t liked';
+            return (
+              <p onClick={this.handClick}>
+                You {text} this. Click to toggle.
+              </p>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <LikeButton></LikeButton>,
+        document.getElementById("content")
+    );
+    </script>
+    <script>
+    
+    </script>
+</body>

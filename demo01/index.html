@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="../js/react.js"></script>
+  <script src="../js/react-dom.js"></script>
+  <script src="../js/browser.min.js"></script>
+
+  
+</head>
+
+<body>
+  <div id="example"></div>
+  <div id="helloCom"></div>
+  <script type="text/babel">
+    var names=["jack","rose"];
+
+    ReactDOM.render(
+    <div>
+      {
+        names.map((name,i)=>{
+          return <h1 key={i} style={{color:"#ff0000"}}>Hello,{name}!</h1>
+        })
+      }
+    </div>, 
+     document.getElementById('example')
+    );
+  
+     class Hello extends React.Component{ 
+       render(){ 
+         return <h1>Hello,{this.props.name}</h1>;
+        } 
+      };
+    
+    ReactDOM.render(
+      <Hello name="cts"></Hello>,
+      document.getElementById('helloCom')
+    );
+  
+</script>
+<script type="text/javascript">
+//ES6 AOP
+    var handler = {
+  get: function(target, name) {
+    if (name === 'prototype') {
+      return Object.prototype;
+    }
+    return 'Hello, ' + name;
+  },
+
+  apply: function(target, thisBinding, args) {
+    return args[0];
+  },
+
+  construct: function(target, args) {
+    return {value: args[1]};
+  }
+};
+
+var fproxy = new Proxy(function(x, y) {
+  return x + y;
+}, handler);
+
+fproxy(1, 2) // 1
+new fproxy(1,2) // {value: 2}
+fproxy.prototype === Object.prototype // true
+fproxy.foo // "Hello, foo"
+</script>
+</body>
+</html>
