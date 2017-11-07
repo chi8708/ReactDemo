@@ -16,6 +16,7 @@
         comment.CreateTime =Date.now();
         var newComments = comments.concat([comment]);
         this.setState({data:newComments});
+        
      }
     render(){
         return(
