@@ -14,14 +14,12 @@
   <div id="helloCom"></div>
   <script type="text/babel">
     var names=["jack","rose"];
-
-    ReactDOM.render(
-    <div>
-      {
-        names.map((name,i)=>{
+    var items= names.map((name,i)=>{
           return <h1 key={i} style={{color:"#ff0000"}}>Hello,{name}!</h1>
         })
-      }
+    ReactDOM.render(
+    <div>
+      {items}
     </div>, 
      document.getElementById('example')
     );
