@@ -37,9 +37,11 @@
             this.setState({message:e.target.value});
         }
         render(){
+            var valueLinkTest = {value: this.state.message,
+                onChange: v=>this.ValChange(v)};
             return (
                 <div>
-                    <input type="text" value={this.state.message} onChange={(e)=>this.ValChange(e)} />
+                    <input type="text" {...valueLinkTest} />
                     <h1>{this.state.message}</h1>
                 </div>
             )
