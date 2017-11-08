@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+   <script src="https://unpkg.com/react@15/dist/react-with-addons.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+  </head>
+  <body>
+    WithOutLink <div id="example"></div>
+    WithLink:<div id="example2"></div>
+    <script type="text/babel">
+
+// var WithLink = React.createClass({
+//   mixins: [React.addons.LinkedStateMixin],
+//   getInitialState: function() {
+//     return {message: 'Hello!'};
+//   },
+//   render: function() {
+//     return (
+//         <div>
+//         <input type="text" valueLink={this.linkState('message')} />
+//         <h1>{this.state.message}</h1>
+//         </div>
+//     )
+//   }
+// });
+
+    //双向绑定 不使用 LinkedState
+    class WithOutLink extends React.Component{
+        constructor(props){
+            super(props);
+            this.state={message:'ok'};
+        }
+        ValChange(e){
+            this.setState({message:e.target.value});
+        }
+        render(){
+            return (
+                <div>
+                    <input type="text" value={this.state.message} onChange={(e)=>this.ValChange(e)} />
+                    <h1>{this.state.message}</h1>
+                </div>
+            )
+        }
+    }
+
+  //双向绑定 使用 LinkedState
+  class WithLink extends React.Component{
+        constructor(props){
+            super(props);
+            this.state={message:'ok'};
+        }
+        handleChange(newValue){
+            this.setState({message:newValue});
+        }
+        render(){
+            var valueLinkTest = {value: this.state.message,
+                requestChange: v=>this.handleChange(v)};
+            return (
+                <div>
+                    <input type="text"  valueLink={valueLinkTest}/>
+                    <h1>{this.state.message}</h1>
+                </div>
+            )
+        }
+    }
+   // WithLink.mixins= [React.addons.LinkedStateMixin];
+
+
+ReactDOM.render(<WithOutLink/>, document.getElementById('example'))
+ReactDOM.render(<WithLink/>, document.getElementById('example2'))
+    </script>
+  </body>
+</html>
